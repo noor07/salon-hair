@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import siteContent from "@/data/site-content.json";
 import { MagneticButton } from "./MagneticButton";
 import Link from "next/link";

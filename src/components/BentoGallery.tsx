@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion, useInView, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { motion, useInView, AnimatePresence, useScroll, useTransform, Variants } from "framer-motion";
 import Image from "next/image";
 import siteContent from "@/data/site-content.json";
 import { GalleryImage } from "@/types";
@@ -52,7 +52,7 @@ export const BentoGallery = () => {
         setMousePos({ x: 0, y: 0 });
     };
 
-    const itemVariant: any = {
+    const itemVariant: Variants = {
         hidden: { opacity: 0, scale: 0.95 },
         show: { opacity: 1, scale: 1, transition: { duration: 0.8 } },
     };
