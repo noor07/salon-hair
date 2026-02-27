@@ -1,26 +1,78 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-onyx: #121212;
+  --color-onyx-muted: #1c1c1c;
+  --color-gold: #c3a343;
+  --color-alabaster: #f9f9f9;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-fraunces-serif), ui-serif, Georgia, serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-onyx);
+  color: var(--color-alabaster);
+}
+
+/* Lenis smooth scrolling styles */
+html,
+html.lenis body {
+  height: auto;
+  scroll-snap-type: y mandatory;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Optional: simple ultra fine border utility if border-[0.5px] is inconsistent */
+.border-ultra-fine {
+  border-width: 0.5px;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 2026 Aesthetic Minimalism Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1a1a1a;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #c3a343;
+  /* gold */
+}
+
+/* 2026 Micro-UX: CSS :has() selector for intent-focused dimming */
+section:has(.group:hover) .group:not(:hover) {
+  opacity: 0.5;
+  filter: grayscale(50%);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 2026 Layout: Container Query support */
+@container bento (min-width: 768px) {
+  .bento-card-large {
+    border-radius: 40px;
+  }
 }

@@ -1,0 +1,117 @@
+{
+    "services": [
+        {
+            "id": "sig-haircut",
+            "name": "Signature Haircut",
+            "price": "$65",
+            "duration": "60 Min",
+            "description": "A tailored cutting experience focusing on structural balance and modern texturizing techniques, suited precisely to your head shape and lifestyle."
+        },
+        {
+            "id": "hot-towel",
+            "name": "Hot Towel Shave",
+            "price": "$45",
+            "duration": "45 Min",
+            "description": "A traditional straight-razor shave utilizing premium essential oils, hot lather, and steamed towels for maximum relaxation and skin conditioning."
+        },
+        {
+            "id": "beard-sculpt",
+            "name": "Beard Sculpting",
+            "price": "$35",
+            "duration": "30 Min",
+            "description": "Precision line work and tapering to enhance your natural jawline, finished with conditioning balms for a healthy, polished look."
+        },
+        {
+            "id": "luxury-groom",
+            "name": "Luxury Grooming",
+            "price": "$120",
+            "duration": "105 Min",
+            "description": "The ultimate package. A combination of our Signature Haircut, Hot Towel Shave, and an exfoliating scalp treatment."
+        }
+    ],
+    "gallery": [
+        {
+            "id": "gal-1",
+            "src": "/salon_interior_minimalist_1772169180364.png",
+            "alt": "Salon Interior",
+            "title": "The Atmosphere",
+            "subtitle": "Pristine Space"
+        },
+        {
+            "id": "gal-2",
+            "src": "/salon_wash_area_1772169213820.png",
+            "alt": "Washing Station"
+        },
+        {
+            "id": "gal-3",
+            "src": "/salon_station_closeup_1772169197334.png",
+            "alt": "Styling Station"
+        }
+    ],
+    "testimonials": [
+        {
+            "id": "t1",
+            "name": "E. Sterling",
+            "quote": "An absolute masterclass in precision. I won't trust anyone else in the city."
+        },
+        {
+            "id": "t2",
+            "name": "M. Donovan",
+            "quote": "The hot towel shave isn't just a service, it's a necessary ritual."
+        },
+        {
+            "id": "t3",
+            "name": "A. Chen",
+            "quote": "They understand the exact architecture of a modern, clean cut. Flawless execution."
+        },
+        {
+            "id": "t4",
+            "name": "J. Reyes",
+            "quote": "Every detail within the shop is curated for pure luxury and relaxation."
+        }
+    ],
+    "footer": {
+        "location": {
+            "address": "124 Luxury Ave",
+            "city": "Metropolis, NY 10001",
+            "country": "USA"
+        },
+        "hours": {
+            "weekdays": "10:00 AM - 8:00 PM",
+            "weekends": "10:00 AM - 6:00 PM",
+            "closed": "Mondays"
+        },
+        "socials": [
+            {
+                "name": "Instagram",
+                "url": "#"
+            },
+            {
+                "name": "Twitter",
+                "url": "#"
+            },
+            {
+                "name": "TikTok",
+                "url": "#"
+            }
+        ],
+        "navigation": [
+            {
+                "name": "Our Services",
+                "url": "#services"
+            },
+            {
+                "name": "The Atmosphere",
+                "url": "#gallery"
+            },
+            {
+                "name": "Artisans",
+                "url": "#stylists"
+            },
+            {
+                "name": "Book Reservation",
+                "url": "#book"
+            }
+        ]
+    }
+}
