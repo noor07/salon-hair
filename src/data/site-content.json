@@ -32,19 +32,19 @@
     "gallery": [
         {
             "id": "gal-1",
-            "src": "/salon_interior_minimalist_1772169180364.png",
+            "src": "/salon-hair/salon_interior_minimalist_1772169180364.png",
             "alt": "Salon Interior",
             "title": "The Atmosphere",
             "subtitle": "Pristine Space"
         },
         {
             "id": "gal-2",
-            "src": "/salon_wash_area_1772169213820.png",
+            "src": "/salon-hair/salon_wash_area_1772169213820.png",
             "alt": "Washing Station"
         },
         {
             "id": "gal-3",
-            "src": "/salon_station_closeup_1772169197334.png",
+            "src": "/salon-hair/salon_station_closeup_1772169197334.png",
             "alt": "Styling Station"
         }
     ],

@@ -15,7 +15,7 @@ export const ServicesSection = () => {
                     {/* Left Column: High Res Image Asset */}
                     <div className="w-full h-[60vh] lg:h-[80vh] relative rounded-2xl overflow-hidden shadow-2xl bg-onyx-muted">
                         <Image
-                            src="/salon_station_closeup_1772169197334.png"
+                            src="/salon-hair/salon_station_closeup_1772169197334.png"
                             alt="Precision Barbering"
                             fill
                             sizes="(max-width: 1024px) 100vw, 50vw"
@@ -23,7 +23,7 @@ export const ServicesSection = () => {
                         />
                         {/* 0.05 Noise overlay for texture consistency */}
                         <Image
-                            src="/noise.svg"
+                            src="/salon-hair/noise.svg"
                             alt=""
                             fill
                             className="opacity-[0.03] pointer-events-none mix-blend-overlay object-cover"
