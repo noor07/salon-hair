@@ -22,7 +22,12 @@ export const ServicesSection = () => {
                             className="object-cover object-center transform scale-105"
                         />
                         {/* 0.05 Noise overlay for texture consistency */}
-                        <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-[0.03] pointer-events-none mix-blend-overlay"></div>
+                        <Image
+                            src="/noise.svg"
+                            alt=""
+                            fill
+                            className="opacity-[0.03] pointer-events-none mix-blend-overlay object-cover"
+                        />
                     </div>
 
                     {/* Right Column: The interactive Service List */}
