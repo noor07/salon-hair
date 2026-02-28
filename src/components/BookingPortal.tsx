@@ -42,12 +42,12 @@ export const BookingPortal = ({ isOpen, onClose }: { isOpen: boolean, onClose: (
                     initial={{ opacity: 0, y: "100%", borderRadius: "100%" }}
                     animate={{ opacity: 1, y: 0, borderRadius: "0%", transition: { type: "spring", stiffness: 100, damping: 20 } }}
                     exit={{ opacity: 0, y: "100%", borderRadius: "100%", transition: { type: "spring", stiffness: 100, damping: 20 } }}
-                    className="fixed inset-0 z-[100] bg-onyx/95 backdrop-blur-3xl overflow-y-auto"
+                    className="fixed inset-0 z-[100] bg-onyx/95 backdrop-blur-3xl overflow-hidden"
                 >
                     <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gold/10 blur-[100px] rounded-full pointer-events-none"></div>
                     <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-white/5 blur-[100px] rounded-full pointer-events-none"></div>
 
-                    <div className="min-h-screen p-8 md:px-24 md:py-16 max-w-6xl mx-auto relative z-10 flex flex-col justify-center">
+                    <div className="h-[100dvh] p-6 md:px-24 md:py-12 max-w-6xl mx-auto relative z-10 flex flex-col">
                         <button
                             onClick={handleClose}
                             className="absolute top-12 right-12 text-alabaster/50 hover:text-gold transition-colors z-50"
@@ -55,7 +55,7 @@ export const BookingPortal = ({ isOpen, onClose }: { isOpen: boolean, onClose: (
                             <X size={32} />
                         </button>
 
-                        <div className="mb-12">
+                        <div className="mb-6 md:mb-8 shrink-0">
                             <motion.h2
                                 initial={{ opacity: 0, y: 30 }}
                                 animate={{ opacity: 1, y: 0, transition: { delay: 0.3 } }}
@@ -80,7 +80,7 @@ export const BookingPortal = ({ isOpen, onClose }: { isOpen: boolean, onClose: (
                             )}
                         </div>
 
-                        <div className="flex-1 flex flex-col justify-center">
+                        <div className="flex-1 flex flex-col justify-start overflow-y-auto min-h-0 pr-4 pb-4 custom-scrollbar" style={{ maskImage: 'linear-gradient(to bottom, black 95%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, black 95%, transparent 100%)' }}>
                             <AnimatePresence mode="wait">
                                 {step === 1 && (
                                     <motion.div
@@ -208,7 +208,7 @@ export const BookingPortal = ({ isOpen, onClose }: { isOpen: boolean, onClose: (
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0, transition: { delay: 0.6 } }}
-                            className="mt-6 pt-6 border-t border-alabaster/10 flex items-center justify-between"
+                            className="mt-6 pt-6 border-t border-alabaster/10 flex items-center justify-between shrink-0"
                         >
                             {step > 1 && step < 4 ? (
                                 <button

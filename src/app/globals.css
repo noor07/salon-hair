@@ -71,6 +71,26 @@ html.lenis body {
   /* gold */
 }
 
+/* Custom Scrollbar for Booking Portal overflow content */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(244, 244, 240, 0.1);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(195, 163, 67, 0.4);
+}
+
+/* gold */
+
 /* 2026 Micro-UX: CSS :has() selector for intent-focused dimming */
 section:has(.group:hover) .group:not(:hover) {
   opacity: 0.5;
