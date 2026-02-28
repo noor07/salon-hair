@@ -59,7 +59,7 @@ export const BookingPortal = ({ isOpen, onClose }: { isOpen: boolean, onClose: (
                             <motion.h2
                                 initial={{ opacity: 0, y: 30 }}
                                 animate={{ opacity: 1, y: 0, transition: { delay: 0.3 } }}
-                                className="text-5xl md:text-7xl font-serif text-alabaster mb-4 uppercase tracking-wide"
+                                className="text-4xl md:text-5xl font-serif text-alabaster mb-2 uppercase tracking-wide"
                             >
                                 {step === 1 && "Select Service."}
                                 {step === 2 && "Choose Artisan."}
@@ -88,23 +88,23 @@ export const BookingPortal = ({ isOpen, onClose }: { isOpen: boolean, onClose: (
                                         initial={{ opacity: 0, x: 20 }}
                                         animate={{ opacity: 1, x: 0 }}
                                         exit={{ opacity: 0, x: -20 }}
-                                        className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-20"
+                                        className="grid grid-cols-1 md:grid-cols-2 gap-4 pb-8"
                                     >
                                         {services.map(srv => (
                                             <div
                                                 key={srv.id}
                                                 onClick={() => setSelectedService(srv.id)}
-                                                className={`w-full p-8 rounded-[2rem] border transition-all duration-300 cursor-pointer ${selectedService === srv.id ? 'border-gold bg-gold/10 shadow-[0_0_30px_rgba(195,163,67,0.15)] scale-[1.02]' : 'border-alabaster/10 bg-onyx hover:border-alabaster/30 hover:bg-onyx-muted'}`}
+                                                className={`w-full p-6 rounded-[1.5rem] border transition-all duration-300 cursor-pointer ${selectedService === srv.id ? 'border-gold bg-gold/10 shadow-[0_0_20px_rgba(195,163,67,0.15)] scale-[1.02]' : 'border-alabaster/10 bg-onyx hover:border-alabaster/30 hover:bg-onyx-muted'}`}
                                             >
-                                                <div className="flex items-start justify-between mb-8">
-                                                    <div className={`flex items-center justify-center w-16 h-16 rounded-full border ${selectedService === srv.id ? 'border-gold text-gold bg-gold/10' : 'border-alabaster/10 text-alabaster/50'}`}>
-                                                        <Scissors className="w-6 h-6" />
+                                                <div className="flex items-start justify-between mb-4">
+                                                    <div className={`flex items-center justify-center w-12 h-12 rounded-full border ${selectedService === srv.id ? 'border-gold text-gold bg-gold/10' : 'border-alabaster/10 text-alabaster/50'}`}>
+                                                        <Scissors className="w-5 h-5" />
                                                     </div>
-                                                    <p className="text-3xl font-serif text-gold">{srv.price}</p>
+                                                    <p className="text-2xl font-serif text-gold">{srv.price}</p>
                                                 </div>
-                                                <h4 className="font-serif text-3xl text-alabaster mb-2">{srv.name}</h4>
-                                                <p className="text-xs font-sans text-alabaster/50 uppercase tracking-widest mb-6">{srv.duration}</p>
-                                                <p className="text-sm font-sans text-alabaster/70 leading-relaxed max-w-[90%]">{srv.description}</p>
+                                                <h4 className="font-serif text-2xl text-alabaster mb-1">{srv.name}</h4>
+                                                <p className="text-[10px] font-sans text-alabaster/50 uppercase tracking-widest mb-3">{srv.duration}</p>
+                                                <p className="text-[13px] font-sans text-alabaster/70 leading-relaxed max-w-[95%]">{srv.description}</p>
                                             </div>
                                         ))}
                                     </motion.div>
@@ -116,26 +116,26 @@ export const BookingPortal = ({ isOpen, onClose }: { isOpen: boolean, onClose: (
                                         initial={{ opacity: 0, x: 20 }}
                                         animate={{ opacity: 1, x: 0 }}
                                         exit={{ opacity: 0, x: -20 }}
-                                        className="grid grid-cols-2 md:grid-cols-4 gap-6 pb-20"
+                                        className="grid grid-cols-2 md:grid-cols-4 gap-4 pb-8"
                                     >
                                         {stylists.map(stylist => (
                                             <div
                                                 key={stylist.name}
                                                 onClick={() => setSelectedStylist(stylist.name)}
-                                                className={`rounded-[2.5rem] border p-8 flex flex-col items-center gap-8 transition-all duration-300 cursor-pointer ${selectedStylist === stylist.name ? 'border-gold bg-gold/10 shadow-[0_0_30px_rgba(195,163,67,0.15)] scale-[1.05]' : 'border-alabaster/10 bg-onyx hover:border-alabaster/30 hover:bg-onyx-muted'}`}
+                                                className={`rounded-[2rem] border p-6 flex flex-col items-center gap-6 transition-all duration-300 cursor-pointer ${selectedStylist === stylist.name ? 'border-gold bg-gold/10 shadow-[0_0_20px_rgba(195,163,67,0.15)] scale-[1.05]' : 'border-alabaster/10 bg-onyx hover:border-alabaster/30 hover:bg-onyx-muted'}`}
                                             >
-                                                <div className={`relative w-40 h-40 rounded-full overflow-hidden shrink-0 border-4 transition-colors ${selectedStylist === stylist.name ? 'border-gold' : 'border-transparent'}`}>
+                                                <div className={`relative w-32 h-32 rounded-full overflow-hidden shrink-0 border-[3px] transition-colors ${selectedStylist === stylist.name ? 'border-gold' : 'border-transparent'}`}>
                                                     <Image
                                                         src={stylist.avatar}
                                                         alt={`${stylist.name} - Master Barber`}
                                                         fill
                                                         className="object-cover"
-                                                        sizes="160px"
+                                                        sizes="128px"
                                                     />
                                                 </div>
                                                 <div className="flex flex-col items-center text-center">
-                                                    <span className="font-serif text-3xl tracking-wide text-alabaster mb-2">{stylist.name}</span>
-                                                    <span className="font-sans uppercase tracking-[0.2em] text-xs text-alabaster/40">Master Barber</span>
+                                                    <span className="font-serif text-2xl tracking-wide text-alabaster mb-1">{stylist.name}</span>
+                                                    <span className="font-sans uppercase tracking-[0.2em] text-[10px] text-alabaster/40">Master Barber</span>
                                                 </div>
                                             </div>
                                         ))}
@@ -208,7 +208,7 @@ export const BookingPortal = ({ isOpen, onClose }: { isOpen: boolean, onClose: (
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0, transition: { delay: 0.6 } }}
-                            className="mt-8 pt-8 border-t border-alabaster/10 flex items-center justify-between"
+                            className="mt-6 pt-6 border-t border-alabaster/10 flex items-center justify-between"
                         >
                             {step > 1 && step < 4 ? (
                                 <button
