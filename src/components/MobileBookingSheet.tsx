@@ -27,8 +27,19 @@ export const MobileBookingSheet = ({ isOpen, onClose }: Props) => {
 
     const days = Array.from({ length: 14 }, (_, i) => i + 1); // Next 14 days
 
-    const nextStep = () => setStep(s => Math.min(s + 1, 3));
+    const nextStep = () => setStep(s => Math.min(s + 1, 4));
     const prevStep = () => setStep(s => Math.max(s - 1, 1));
+
+    // Custom close to reset state
+    const handleClose = () => {
+        onClose();
+        setTimeout(() => {
+            setStep(1);
+            setSelectedService(null);
+            setSelectedStylist(null);
+            setSelectedDate(null);
+        }, 500); // Wait for exit animation
+    };
 
     return (
         <AnimatePresence>
@@ -39,7 +50,7 @@ export const MobileBookingSheet = ({ isOpen, onClose }: Props) => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        onClick={onClose}
+                        onClick={handleClose}
                         className="fixed inset-0 bg-onyx/80 backdrop-blur-sm z-[100] md:hidden"
                     />
 
@@ -62,13 +73,13 @@ export const MobileBookingSheet = ({ isOpen, onClose }: Props) => {
                                 ))}
                             </div>
 
-                            <div className="w-full px-8 flex justify-between text-[10px] font-sans uppercase tracking-widest text-alabaster/40">
+                            <div className={`w-full px-8 flex justify-between text-[10px] font-sans uppercase tracking-widest transition-opacity ${step === 4 ? 'opacity-0' : 'opacity-100 text-alabaster/40'}`}>
                                 <span className={step >= 1 ? 'text-gold' : ''}>Service</span>
                                 <span className={step >= 2 ? 'text-gold' : ''}>Stylist</span>
                                 <span className={step >= 3 ? 'text-gold' : ''}>Time</span>
                             </div>
 
-                            <button onClick={onClose} className="absolute top-4 right-6 text-alabaster/50 hover:text-white">
+                            <button onClick={handleClose} className="absolute top-4 right-6 text-alabaster/50 hover:text-white">
                                 <X className="w-6 h-6" />
                             </button>
                         </div>
@@ -172,13 +183,34 @@ export const MobileBookingSheet = ({ isOpen, onClose }: Props) => {
                                         </div>
                                     </motion.div>
                                 )}
+
+                                {step === 4 && (
+                                    <motion.div
+                                        key="step4"
+                                        initial={{ opacity: 0, scale: 0.95 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        exit={{ opacity: 0, scale: 0.95 }}
+                                        className="flex flex-col items-center justify-center text-center h-[50vh] gap-6"
+                                    >
+                                        <div className="w-20 h-20 rounded-full bg-gold/10 flex items-center justify-center mb-4">
+                                            <CalendarIcon className="w-10 h-10 text-gold" />
+                                        </div>
+                                        <h3 className="text-3xl font-serif text-gold tracking-wide">Reservation Confirmed</h3>
+                                        <p className="font-sans text-sm text-alabaster/70 leading-relaxed max-w-[80%]">
+                                            Your appointment with <span className="text-alabaster font-semibold">{selectedStylist}</span> for the <span className="text-alabaster font-semibold">{services.find(s => s.id === selectedService)?.name}</span> has been secured.
+                                        </p>
+                                        <p className="font-sans text-xs tracking-widest uppercase text-alabaster/40 mt-4">
+                                            We look forward to hosting you.
+                                        </p>
+                                    </motion.div>
+                                )}
                             </AnimatePresence>
                         </div>
 
                         {/* Sticky Bottom Actions */}
                         <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-onyx via-onyx to-transparent pt-12">
                             <div className="flex gap-4">
-                                {step > 1 && (
+                                {step > 1 && step < 4 && (
                                     <button
                                         onClick={prevStep}
                                         className="w-14 h-14 rounded-full border border-alabaster/20 flex items-center justify-center text-alabaster/50 shrink-0"
@@ -189,14 +221,18 @@ export const MobileBookingSheet = ({ isOpen, onClose }: Props) => {
 
                                 <button
                                     onClick={() => {
-                                        if (step < 3) nextStep();
-                                        else onClose(); // Final confirm action
+                                        if (step < 4) nextStep();
+                                        if (step === 4) handleClose();
                                     }}
-                                    disabled={(step === 1 && !selectedService) || (step === 2 && !selectedStylist) || (step === 3 && !selectedDate)}
+                                    disabled={
+                                        (step === 1 && !selectedService) ||
+                                        (step === 2 && !selectedStylist) ||
+                                        (step === 3 && !selectedDate)
+                                    }
                                     className="flex-1 h-14 rounded-full bg-gold text-onyx font-sans uppercase tracking-[0.2em] text-xs flex items-center justify-center gap-2 disabled:opacity-50 disabled:bg-alabaster/20 disabled:text-alabaster/50 transition-colors"
                                 >
-                                    {step === 3 ? "Confirm Booking" : "Continue"}
-                                    {step < 3 && <ChevronRight className="w-4 h-4" />}
+                                    {step === 4 ? "Done" : step === 3 ? "Confirm Booking" : "Continue"}
+                                    {step < 4 && <ChevronRight className="w-4 h-4" />}
                                 </button>
                             </div>
                         </div>
