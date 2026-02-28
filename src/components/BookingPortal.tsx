@@ -148,11 +148,11 @@ export const BookingPortal = ({ isOpen, onClose }: { isOpen: boolean, onClose: (
                                         initial={{ opacity: 0, x: 20 }}
                                         animate={{ opacity: 1, x: 0 }}
                                         exit={{ opacity: 0, x: -20 }}
-                                        className="w-full max-w-3xl pb-20"
+                                        className="w-full max-w-2xl mx-auto pb-8"
                                     >
-                                        <div className="grid grid-cols-7 gap-6 md:gap-10">
+                                        <div className="grid grid-cols-7 gap-4 md:gap-6">
                                             {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((day, i) => (
-                                                <div key={i} className="text-center text-xs font-sans tracking-widest text-alabaster/30 mb-8">{day}</div>
+                                                <div key={i} className="text-center text-[10px] font-sans tracking-widest text-alabaster/30 mb-4">{day}</div>
                                             ))}
 
                                             {/* Empty offset days */}
@@ -176,8 +176,8 @@ export const BookingPortal = ({ isOpen, onClose }: { isOpen: boolean, onClose: (
                                                         : "border-white/10 text-alabaster hover:border-gold/30 hover:bg-white/10"
                                                         }`}
                                                 >
-                                                    <span className="text-2xl font-serif">{day}</span>
-                                                    {selectedDate === day && <span className="text-[10px] font-sans uppercase tracking-widest opacity-80">10:00AM</span>}
+                                                    <span className="text-xl font-serif">{day}</span>
+                                                    {selectedDate === day && <span className="text-[8px] font-sans uppercase tracking-widest opacity-80 leading-none">10:00AM</span>}
                                                 </motion.button>
                                             ))}
                                         </div>
@@ -190,14 +190,14 @@ export const BookingPortal = ({ isOpen, onClose }: { isOpen: boolean, onClose: (
                                         initial={{ opacity: 0, scale: 0.95 }}
                                         animate={{ opacity: 1, scale: 1 }}
                                         exit={{ opacity: 0, scale: 0.95 }}
-                                        className="flex flex-col items-start justify-center py-12"
+                                        className="flex flex-col items-start justify-center py-8"
                                     >
-                                        <div className="w-24 h-24 rounded-full bg-gold/10 flex items-center justify-center mb-10 border border-gold/20">
-                                            <CalendarIcon className="w-10 h-10 text-gold" />
+                                        <div className="w-20 h-20 rounded-full bg-gold/10 flex items-center justify-center mb-8 border border-gold/20">
+                                            <CalendarIcon className="w-8 h-8 text-gold" />
                                         </div>
-                                        <p className="font-sans text-2xl text-alabaster/70 leading-relaxed max-w-3xl mb-16">
-                                            Your appointment with <span className="text-alabaster font-semibold text-3xl">{selectedStylist}</span> for the <span className="text-alabaster font-semibold text-3xl">{services.find(s => s.id === selectedService)?.name}</span> has been completely secured.
-                                            We look forward to hosting you on <span className="text-gold font-serif text-3xl">March {selectedDate}, 2026</span>.
+                                        <p className="font-sans text-xl text-alabaster/70 leading-relaxed max-w-3xl mb-8">
+                                            Your appointment with <span className="text-alabaster font-semibold text-2xl">{selectedStylist}</span> for the <span className="text-alabaster font-semibold text-2xl">{services.find(s => s.id === selectedService)?.name}</span> has been completely secured.
+                                            We look forward to hosting you on <span className="text-gold font-serif text-2xl">March {selectedDate}, 2026</span>.
                                         </p>
                                     </motion.div>
                                 )}
