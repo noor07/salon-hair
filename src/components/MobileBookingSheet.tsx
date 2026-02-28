@@ -2,7 +2,8 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { X, ChevronRight, User, Calendar as CalendarIcon, Scissors } from "lucide-react";
+import { X, ChevronRight, Calendar as CalendarIcon, Scissors } from "lucide-react";
+import Image from "next/image";
 import siteContent from "@/data/site-content.json";
 
 interface Props {
@@ -17,7 +18,13 @@ export const MobileBookingSheet = ({ isOpen, onClose }: Props) => {
     const [selectedDate, setSelectedDate] = useState<number | null>(null);
 
     const { services } = siteContent;
-    const stylists = ["Elena", "Marcus", "David", "Sarah"];
+    const stylists = [
+        { name: "Elena", avatar: "/salon-hair/avatar_elena.png" },
+        { name: "Marcus", avatar: "/salon-hair/avatar_marcus.png" },
+        { name: "David", avatar: "/salon-hair/avatar_david.png" },
+        { name: "Sarah", avatar: "/salon-hair/avatar_sarah.png" }
+    ];
+
     const days = Array.from({ length: 14 }, (_, i) => i + 1); // Next 14 days
 
     const nextStep = () => setStep(s => Math.min(s + 1, 3));
@@ -85,16 +92,19 @@ export const MobileBookingSheet = ({ isOpen, onClose }: Props) => {
                                                     onClick={() => setSelectedService(srv.id)}
                                                     className={`w-full p-4 rounded-2xl border flex items-center justify-between transition-all duration-300 cursor-pointer ${selectedService === srv.id ? 'border-gold bg-gold/5 shadow-[0_0_15px_rgba(195,163,67,0.15)]' : 'border-alabaster/10 bg-onyx-muted'}`}
                                                 >
-                                                    <div className="flex items-center gap-4">
-                                                        <div className={`flex items-center justify-center w-12 h-12 rounded-full border ${selectedService === srv.id ? 'border-gold text-gold bg-gold/10' : 'border-alabaster/10 text-alabaster/50 bg-onyx'}`}>
+                                                    <div className="flex items-start gap-4">
+                                                        <div className={`flex items-center justify-center w-12 h-12 rounded-full border shrink-0 ${selectedService === srv.id ? 'border-gold text-gold bg-gold/10' : 'border-alabaster/10 text-alabaster/50 bg-onyx'}`}>
                                                             <Scissors className="w-5 h-5" />
                                                         </div>
-                                                        <div className="flex flex-col">
-                                                            <h4 className="font-serif text-lg text-alabaster">{srv.name}</h4>
-                                                            <p className="text-[10px] font-sans text-alabaster/50 uppercase tracking-widest">{srv.duration}</p>
+                                                        <div className="flex flex-col flex-1">
+                                                            <div className="flex justify-between items-start mb-1">
+                                                                <h4 className="font-serif text-lg text-alabaster">{srv.name}</h4>
+                                                                <p className="text-lg font-serif text-gold">{srv.price}</p>
+                                                            </div>
+                                                            <p className="text-[10px] font-sans text-alabaster/50 uppercase tracking-widest mb-3">{srv.duration}</p>
+                                                            <p className="text-xs font-sans text-alabaster/70 leading-relaxed max-w-[90%]">{srv.description}</p>
                                                         </div>
                                                     </div>
-                                                    <p className="text-lg font-serif text-gold">{srv.price}</p>
                                                 </div>
                                             ))}
                                         </div>
@@ -113,14 +123,23 @@ export const MobileBookingSheet = ({ isOpen, onClose }: Props) => {
                                         <div className="grid grid-cols-2 gap-4">
                                             {stylists.map(stylist => (
                                                 <div
-                                                    key={stylist}
-                                                    onClick={() => setSelectedStylist(stylist)}
-                                                    className={`aspect-square rounded-2xl border flex flex-col items-center justify-center transition-all ${selectedStylist === stylist ? 'border-gold bg-gold/5' : 'border-alabaster/10 bg-onyx-muted'}`}
+                                                    key={stylist.name}
+                                                    onClick={() => setSelectedStylist(stylist.name)}
+                                                    className={`rounded-2xl border p-4 flex items-center gap-4 transition-all duration-300 cursor-pointer ${selectedStylist === stylist.name ? 'border-gold bg-gold/5 shadow-[0_0_15px_rgba(195,163,67,0.15)]' : 'border-alabaster/10 bg-onyx-muted'}`}
                                                 >
-                                                    <div className={`w-16 h-16 rounded-full mb-3 flex items-center justify-center border ${selectedStylist === stylist ? 'border-gold text-gold' : 'border-alabaster/20 text-alabaster/50'}`}>
-                                                        <User className="w-8 h-8" />
+                                                    <div className={`relative w-16 h-16 rounded-full overflow-hidden shrink-0 border-2 transition-colors ${selectedStylist === stylist.name ? 'border-gold' : 'border-transparent'}`}>
+                                                        <Image
+                                                            src={stylist.avatar}
+                                                            alt={`${stylist.name} - Master Barber`}
+                                                            fill
+                                                            className="object-cover"
+                                                            sizes="64px"
+                                                        />
                                                     </div>
-                                                    <span className="font-sans uppercase tracking-widest text-xs text-alabaster">{stylist}</span>
+                                                    <div className="flex flex-col">
+                                                        <span className="font-serif text-lg tracking-wide text-alabaster">{stylist.name}</span>
+                                                        <span className="font-sans uppercase tracking-[0.2em] text-[8px] text-alabaster/40 mt-1">Master Barber</span>
+                                                    </div>
                                                 </div>
                                             ))}
                                         </div>
