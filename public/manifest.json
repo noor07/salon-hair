@@ -1,0 +1,22 @@
+{
+    "name": "Los Domi Barbershop",
+    "short_name": "Los Domi",
+    "description": "High-end luxury salon and barbershop.",
+    "start_url": "/salon-hair/",
+    "display": "standalone",
+    "background_color": "#121212",
+    "theme_color": "#c3a343",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "/salon-hair/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/salon-hair/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

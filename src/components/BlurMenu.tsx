@@ -29,7 +29,7 @@ export const BlurMenu = () => {
                     backdropFilter,
                     border
                 }}
-                className="fixed top-6 md:top-8 left-1/2 -translate-x-1/2 z-40 flex items-center justify-between px-6 py-4 w-[95%] max-w-5xl rounded-full shadow-2xl"
+                className="hidden md:flex fixed top-6 md:top-8 left-1/2 -translate-x-1/2 z-40 items-center justify-between px-6 py-4 w-[95%] max-w-5xl rounded-full shadow-2xl"
             >
                 <div className="flex items-center gap-2 text-alabaster">
                     <Scissors className="w-5 h-5 text-gold" />

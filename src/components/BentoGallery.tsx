@@ -76,13 +76,13 @@ export const BentoGallery = () => {
                         hidden: {},
                         show: { transition: { staggerChildren: 0.2 } }
                     }}
-                    className="max-w-7xl mx-auto flex flex-col gap-16 md:gap-32 py-16 px-0 overflow-hidden"
+                    className="max-w-7xl mx-auto flex max-md:flex-row max-md:overflow-x-auto max-md:snap-x max-md:snap-mandatory hide-scrollbar md:flex-col gap-6 md:gap-32 py-16 px-0 overflow-visible md:overflow-hidden"
                 >
                     {/* Main large image - Asymmetrical Right Aligned */}
                     <motion.div
                         style={{ y: parallaxMedium }}
                         variants={itemVariant}
-                        className="w-[90vw] md:w-3/4 max-w-5xl self-end h-[400px] md:h-[600px]"
+                        className="w-[85vw] md:w-3/4 max-w-5xl shrink-0 snap-center md:self-end h-[400px] md:h-[600px] max-md:!scale-100 max-md:!transform-none"
                     >
                         <motion.div
                             layoutId={gallery[0].id}
@@ -127,7 +127,7 @@ export const BentoGallery = () => {
                     <motion.div
                         style={{ y: parallaxSlow }}
                         variants={itemVariant}
-                        className="w-[80vw] md:w-2/3 max-w-3xl self-center auto-rows-auto h-[400px] md:h-[500px] mt-16 md:mt-32"
+                        className="w-[85vw] md:w-2/3 max-w-3xl shrink-0 snap-center md:self-center auto-rows-auto h-[400px] md:h-[500px] md:mt-32 max-md:!scale-100 max-md:!transform-none"
                     >
                         <motion.div
                             layoutId={gallery[1].id}
@@ -152,7 +152,7 @@ export const BentoGallery = () => {
                     <motion.div
                         style={{ y: parallaxFast }}
                         variants={itemVariant}
-                        className="w-[90vw] md:w-5/6 max-w-6xl self-start h-[400px] md:h-[700px] mt-16 md:mt-48 mb-32"
+                        className="w-[85vw] md:w-5/6 max-w-6xl shrink-0 snap-center md:self-start h-[400px] md:h-[700px] md:mt-48 mb-32 max-md:!scale-100 max-md:!transform-none"
                     >
                         <motion.div
                             layoutId={gallery[2].id}
