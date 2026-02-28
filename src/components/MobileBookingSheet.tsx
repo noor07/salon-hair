@@ -78,17 +78,23 @@ export const MobileBookingSheet = ({ isOpen, onClose }: Props) => {
                                         className="flex flex-col gap-6"
                                     >
                                         <h3 className="text-2xl font-serif text-alabaster tracking-wide">Select Service</h3>
-                                        <div className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-4 pb-4 -mx-6 px-6">
+                                        <div className="flex flex-col gap-3 pb-8">
                                             {services.map(srv => (
                                                 <div
                                                     key={srv.id}
                                                     onClick={() => setSelectedService(srv.id)}
-                                                    className={`snap-center shrink-0 w-[240px] p-6 rounded-2xl border transition-all duration-300 ${selectedService === srv.id ? 'border-gold bg-gold/5' : 'border-alabaster/10 bg-onyx-muted'}`}
+                                                    className={`w-full p-4 rounded-2xl border flex items-center justify-between transition-all duration-300 cursor-pointer ${selectedService === srv.id ? 'border-gold bg-gold/5 shadow-[0_0_15px_rgba(195,163,67,0.15)]' : 'border-alabaster/10 bg-onyx-muted'}`}
                                                 >
-                                                    <Scissors className={`w-6 h-6 mb-4 ${selectedService === srv.id ? 'text-gold' : 'text-alabaster/50'}`} />
-                                                    <h4 className="font-serif text-lg mb-1 text-alabaster">{srv.name}</h4>
-                                                    <p className="text-xs font-sans text-alabaster/50 uppercase tracking-widest mb-4">{srv.duration}</p>
-                                                    <p className="text-xl font-serif text-gold">{srv.price}</p>
+                                                    <div className="flex items-center gap-4">
+                                                        <div className={`flex items-center justify-center w-12 h-12 rounded-full border ${selectedService === srv.id ? 'border-gold text-gold bg-gold/10' : 'border-alabaster/10 text-alabaster/50 bg-onyx'}`}>
+                                                            <Scissors className="w-5 h-5" />
+                                                        </div>
+                                                        <div className="flex flex-col">
+                                                            <h4 className="font-serif text-lg text-alabaster">{srv.name}</h4>
+                                                            <p className="text-[10px] font-sans text-alabaster/50 uppercase tracking-widest">{srv.duration}</p>
+                                                        </div>
+                                                    </div>
+                                                    <p className="text-lg font-serif text-gold">{srv.price}</p>
                                                 </div>
                                             ))}
                                         </div>
