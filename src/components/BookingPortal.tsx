@@ -169,11 +169,11 @@ export const BookingPortal = ({ isOpen, onClose }: { isOpen: boolean, onClose: (
                                                         y: 0,
                                                         transition: { type: "spring", stiffness: 200, delay: 0.1 + (i * 0.02) }
                                                     }}
-                                                    whileHover={{ scale: 1.1, backgroundColor: "rgba(255,255,255,0.1)" }}
+                                                    whileHover={{ scale: 1.1 }}
                                                     whileTap={{ scale: 0.9 }}
-                                                    className={`aspect-square flex items-center justify-center rounded-full flex-col gap-1 transition-colors border ${selectedDate === day
+                                                    className={`aspect-square flex items-center justify-center rounded-full flex-col gap-1 transition-colors border focus:outline-none ${selectedDate === day
                                                         ? "bg-gold text-onyx border-gold shadow-[0_0_30px_rgba(195,163,67,0.4)]"
-                                                        : "border-white/10 text-alabaster hover:border-gold/30"
+                                                        : "border-white/10 text-alabaster hover:border-gold/30 hover:bg-white/10"
                                                         }`}
                                                 >
                                                     <span className="text-2xl font-serif">{day}</span>
