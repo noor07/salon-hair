@@ -21,7 +21,7 @@ export const BottomNav = () => {
                 initial={{ y: 100 }}
                 animate={{ y: 0 }}
                 transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-                className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-40 w-[90%] max-w-sm rounded-[2rem] bg-onyx-muted/80 backdrop-blur-2xl border border-alabaster/10 shadow-2xl px-6 py-4 flex items-center justify-between"
+                className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-40 w-[90%] max-w-sm rounded-[2rem] bg-onyx-muted/80 backdrop-blur-2xl border border-alabaster/10 shadow-2xl px-6 pt-4 pb-4 flex items-end justify-between"
             >
                 {navItems.map((item, index) => {
                     const Icon = item.icon;
@@ -50,7 +50,7 @@ export const BottomNav = () => {
                     <div className="w-10 h-10 rounded-full bg-gold flex items-center justify-center relative z-10 shadow-[0_0_20px_rgba(212,175,55,0.3)]">
                         <Calendar className="w-4 h-4 text-onyx" />
                     </div>
-                    <span className="text-[10px] font-sans uppercase tracking-widest text-gold mt-1 absolute -bottom-5">
+                    <span className="text-[10px] font-sans uppercase tracking-widest text-gold">
                         Book
                     </span>
                 </motion.button>
