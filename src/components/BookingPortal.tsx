@@ -2,13 +2,38 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { X } from "lucide-react";
+import { X, Calendar as CalendarIcon, Scissors, ChevronRight, ChevronLeft } from "lucide-react";
+import Image from "next/image";
+import siteContent from "@/data/site-content.json";
 
 export const BookingPortal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) => {
+    const [step, setStep] = useState(1);
+    const [selectedService, setSelectedService] = useState<string | null>(null);
+    const [selectedStylist, setSelectedStylist] = useState<string | null>(null);
     const [selectedDate, setSelectedDate] = useState<number | null>(null);
 
-    // Generate some mock days for a calendar
+    const { services } = siteContent;
+    const stylists = [
+        { name: "Elena", avatar: "/salon-hair/avatar_elena.png" },
+        { name: "Marcus", avatar: "/salon-hair/avatar_marcus.png" },
+        { name: "David", avatar: "/salon-hair/avatar_david.png" },
+        { name: "Sarah", avatar: "/salon-hair/avatar_sarah.png" }
+    ];
+
     const days = Array.from({ length: 30 }, (_, i) => i + 1);
+
+    const handleClose = () => {
+        onClose();
+        setTimeout(() => {
+            setStep(1);
+            setSelectedService(null);
+            setSelectedStylist(null);
+            setSelectedDate(null);
+        }, 500);
+    };
+
+    const nextStep = () => setStep(s => Math.min(s + 1, 4));
+    const prevStep = () => setStep(s => Math.max(s - 1, 1));
 
     return (
         <AnimatePresence>
@@ -17,89 +42,203 @@ export const BookingPortal = ({ isOpen, onClose }: { isOpen: boolean, onClose: (
                     initial={{ opacity: 0, y: "100%", borderRadius: "100%" }}
                     animate={{ opacity: 1, y: 0, borderRadius: "0%", transition: { type: "spring", stiffness: 100, damping: 20 } }}
                     exit={{ opacity: 0, y: "100%", borderRadius: "100%", transition: { type: "spring", stiffness: 100, damping: 20 } }}
-                    className="fixed inset-0 z-[100] bg-onyx/90 backdrop-blur-3xl overflow-y-auto"
+                    className="fixed inset-0 z-[100] bg-onyx/95 backdrop-blur-3xl overflow-y-auto"
                 >
                     <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gold/10 blur-[100px] rounded-full pointer-events-none"></div>
                     <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-white/5 blur-[100px] rounded-full pointer-events-none"></div>
 
-                    <div className="min-h-screen p-8 md:p-24 max-w-5xl mx-auto relative z-10 flex flex-col justify-center">
+                    <div className="min-h-screen p-8 md:px-24 md:py-16 max-w-6xl mx-auto relative z-10 flex flex-col justify-center">
                         <button
-                            onClick={onClose}
-                            className="absolute top-8 right-8 text-alabaster/50 hover:text-gold transition-colors"
+                            onClick={handleClose}
+                            className="absolute top-12 right-12 text-alabaster/50 hover:text-gold transition-colors z-50"
                         >
                             <X size={32} />
                         </button>
 
-                        <motion.h2
-                            initial={{ opacity: 0, y: 30 }}
-                            animate={{ opacity: 1, y: 0, transition: { delay: 0.3 } }}
-                            className="text-5xl md:text-7xl font-serif text-alabaster mb-4 uppercase tracking-wide"
-                        >
-                            Secure Your Era.
-                        </motion.h2>
-                        <motion.p
-                            initial={{ opacity: 0, y: 30 }}
-                            animate={{ opacity: 1, y: 0, transition: { delay: 0.4 } }}
-                            className="text-sm font-sans tracking-[0.2em] uppercase text-gold mb-16"
-                        >
-                            Select a Date for Service
-                        </motion.p>
+                        <div className="mb-12">
+                            <motion.h2
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: 1, y: 0, transition: { delay: 0.3 } }}
+                                className="text-5xl md:text-7xl font-serif text-alabaster mb-4 uppercase tracking-wide"
+                            >
+                                {step === 1 && "Select Service."}
+                                {step === 2 && "Choose Artisan."}
+                                {step === 3 && "Secure Your Era."}
+                                {step === 4 && "Era Confirmed."}
+                            </motion.h2>
 
-                        <div className="grid grid-cols-7 gap-4 md:gap-8">
-                            {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((day, i) => (
-                                <div key={i} className="text-center text-xs font-sans tracking-widest text-alabaster/30 mb-4">{day}</div>
-                            ))}
-
-                            {/* Empty offset days */}
-                            <div className="col-span-3"></div>
-
-                            {days.map((day, i) => (
-                                <motion.button
-                                    key={day}
-                                    onClick={() => setSelectedDate(day)}
-                                    // Step-based framer motion anomaly (tumbling numbers)
-                                    initial={{ opacity: 0, rotateX: 90, y: 20 }}
-                                    animate={{
-                                        opacity: 1,
-                                        rotateX: 0,
-                                        y: 0,
-                                        transition: { type: "spring", stiffness: 200, delay: 0.4 + (i * 0.02) }
-                                    }}
-                                    whileHover={{ scale: 1.1, backgroundColor: "rgba(255,255,255,0.1)" }}
-                                    whileTap={{ scale: 0.9 }}
-                                    className={`aspect-square flex items-center justify-center rounded-full text-lg font-serif transition-colors ${selectedDate === day
-                                            ? "bg-gold text-onyx border-none shadow-[0_0_30px_rgba(195,163,67,0.4)]"
-                                            : "border border-white/10 text-alabaster hover:border-gold/30"
-                                        }`}
-                                >
-                                    {day}
-                                </motion.button>
-                            ))}
-                        </div>
-
-                        {/* Animate in confirmation area if date is selected */}
-                        <AnimatePresence>
-                            {selectedDate && (
+                            {step < 4 && (
                                 <motion.div
-                                    initial={{ opacity: 0, height: 0 }}
-                                    animate={{ opacity: 1, height: "auto", transition: { delay: 0.2 } }}
-                                    exit={{ opacity: 0, height: 0 }}
-                                    className="mt-16 flex justify-between items-center border-t border-white/10 pt-8"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1, transition: { delay: 0.5 } }}
+                                    className="flex items-center gap-4 mt-8"
                                 >
-                                    <div>
-                                        <p className="text-sm font-sans text-alabaster/50 uppercase tracking-widest mb-2">Selected Date</p>
-                                        <p className="text-3xl font-serif text-gold">February {selectedDate}, 2026</p>
-                                    </div>
-                                    <motion.button
-                                        whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
-                                        className="bg-gold text-onyx px-8 py-4 text-xs font-sans tracking-[0.2em] uppercase transition-all duration-300 hover:shadow-[0_0_40px_rgba(195,163,67,0.6)]"
-                                    >
-                                        Confirm Era
-                                    </motion.button>
+                                    {[1, 2, 3].map(i => (
+                                        <div key={i} className={`h-1 w-16 rounded-full transition-colors duration-500 ${step >= i ? 'bg-gold' : 'bg-alabaster/20'}`} />
+                                    ))}
                                 </motion.div>
                             )}
-                        </AnimatePresence>
+                        </div>
+
+                        <div className="flex-1 flex flex-col justify-center">
+                            <AnimatePresence mode="wait">
+                                {step === 1 && (
+                                    <motion.div
+                                        key="step1"
+                                        initial={{ opacity: 0, x: 20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        exit={{ opacity: 0, x: -20 }}
+                                        className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-20"
+                                    >
+                                        {services.map(srv => (
+                                            <div
+                                                key={srv.id}
+                                                onClick={() => setSelectedService(srv.id)}
+                                                className={`w-full p-8 rounded-[2rem] border transition-all duration-300 cursor-pointer ${selectedService === srv.id ? 'border-gold bg-gold/10 shadow-[0_0_30px_rgba(195,163,67,0.15)] scale-[1.02]' : 'border-alabaster/10 bg-onyx hover:border-alabaster/30 hover:bg-onyx-muted'}`}
+                                            >
+                                                <div className="flex items-start justify-between mb-8">
+                                                    <div className={`flex items-center justify-center w-16 h-16 rounded-full border ${selectedService === srv.id ? 'border-gold text-gold bg-gold/10' : 'border-alabaster/10 text-alabaster/50'}`}>
+                                                        <Scissors className="w-6 h-6" />
+                                                    </div>
+                                                    <p className="text-3xl font-serif text-gold">{srv.price}</p>
+                                                </div>
+                                                <h4 className="font-serif text-3xl text-alabaster mb-2">{srv.name}</h4>
+                                                <p className="text-xs font-sans text-alabaster/50 uppercase tracking-widest mb-6">{srv.duration}</p>
+                                                <p className="text-sm font-sans text-alabaster/70 leading-relaxed max-w-[90%]">{srv.description}</p>
+                                            </div>
+                                        ))}
+                                    </motion.div>
+                                )}
+
+                                {step === 2 && (
+                                    <motion.div
+                                        key="step2"
+                                        initial={{ opacity: 0, x: 20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        exit={{ opacity: 0, x: -20 }}
+                                        className="grid grid-cols-2 md:grid-cols-4 gap-6 pb-20"
+                                    >
+                                        {stylists.map(stylist => (
+                                            <div
+                                                key={stylist.name}
+                                                onClick={() => setSelectedStylist(stylist.name)}
+                                                className={`rounded-[2.5rem] border p-8 flex flex-col items-center gap-8 transition-all duration-300 cursor-pointer ${selectedStylist === stylist.name ? 'border-gold bg-gold/10 shadow-[0_0_30px_rgba(195,163,67,0.15)] scale-[1.05]' : 'border-alabaster/10 bg-onyx hover:border-alabaster/30 hover:bg-onyx-muted'}`}
+                                            >
+                                                <div className={`relative w-40 h-40 rounded-full overflow-hidden shrink-0 border-4 transition-colors ${selectedStylist === stylist.name ? 'border-gold' : 'border-transparent'}`}>
+                                                    <Image
+                                                        src={stylist.avatar}
+                                                        alt={`${stylist.name} - Master Barber`}
+                                                        fill
+                                                        className="object-cover"
+                                                        sizes="160px"
+                                                    />
+                                                </div>
+                                                <div className="flex flex-col items-center text-center">
+                                                    <span className="font-serif text-3xl tracking-wide text-alabaster mb-2">{stylist.name}</span>
+                                                    <span className="font-sans uppercase tracking-[0.2em] text-xs text-alabaster/40">Master Barber</span>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </motion.div>
+                                )}
+
+                                {step === 3 && (
+                                    <motion.div
+                                        key="step3"
+                                        initial={{ opacity: 0, x: 20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        exit={{ opacity: 0, x: -20 }}
+                                        className="w-full max-w-3xl pb-20"
+                                    >
+                                        <div className="grid grid-cols-7 gap-6 md:gap-10">
+                                            {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((day, i) => (
+                                                <div key={i} className="text-center text-xs font-sans tracking-widest text-alabaster/30 mb-8">{day}</div>
+                                            ))}
+
+                                            {/* Empty offset days */}
+                                            <div className="col-span-3"></div>
+
+                                            {days.map((day, i) => (
+                                                <motion.button
+                                                    key={day}
+                                                    onClick={() => setSelectedDate(day)}
+                                                    initial={{ opacity: 0, rotateX: 90, y: 20 }}
+                                                    animate={{
+                                                        opacity: 1,
+                                                        rotateX: 0,
+                                                        y: 0,
+                                                        transition: { type: "spring", stiffness: 200, delay: 0.1 + (i * 0.02) }
+                                                    }}
+                                                    whileHover={{ scale: 1.1, backgroundColor: "rgba(255,255,255,0.1)" }}
+                                                    whileTap={{ scale: 0.9 }}
+                                                    className={`aspect-square flex items-center justify-center rounded-full flex-col gap-1 transition-colors border ${selectedDate === day
+                                                        ? "bg-gold text-onyx border-gold shadow-[0_0_30px_rgba(195,163,67,0.4)]"
+                                                        : "border-white/10 text-alabaster hover:border-gold/30"
+                                                        }`}
+                                                >
+                                                    <span className="text-2xl font-serif">{day}</span>
+                                                    {selectedDate === day && <span className="text-[10px] font-sans uppercase tracking-widest opacity-80">10:00AM</span>}
+                                                </motion.button>
+                                            ))}
+                                        </div>
+                                    </motion.div>
+                                )}
+
+                                {step === 4 && (
+                                    <motion.div
+                                        key="step4"
+                                        initial={{ opacity: 0, scale: 0.95 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        exit={{ opacity: 0, scale: 0.95 }}
+                                        className="flex flex-col items-start justify-center py-12"
+                                    >
+                                        <div className="w-24 h-24 rounded-full bg-gold/10 flex items-center justify-center mb-10 border border-gold/20">
+                                            <CalendarIcon className="w-10 h-10 text-gold" />
+                                        </div>
+                                        <p className="font-sans text-2xl text-alabaster/70 leading-relaxed max-w-3xl mb-16">
+                                            Your appointment with <span className="text-alabaster font-semibold text-3xl">{selectedStylist}</span> for the <span className="text-alabaster font-semibold text-3xl">{services.find(s => s.id === selectedService)?.name}</span> has been completely secured.
+                                            We look forward to hosting you on <span className="text-gold font-serif text-3xl">March {selectedDate}, 2026</span>.
+                                        </p>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </div>
+
+                        {/* Navigation Footer */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0, transition: { delay: 0.6 } }}
+                            className="mt-8 pt-8 border-t border-alabaster/10 flex items-center justify-between"
+                        >
+                            {step > 1 && step < 4 ? (
+                                <button
+                                    onClick={prevStep}
+                                    className="flex items-center gap-3 text-alabaster/50 hover:text-white transition-colors uppercase tracking-widest text-xs font-sans group"
+                                >
+                                    <div className="w-14 h-14 rounded-full border border-alabaster/20 flex items-center justify-center group-hover:border-alabaster/50 transition-colors">
+                                        <ChevronLeft className="w-5 h-5" />
+                                    </div>
+                                    Go Back
+                                </button>
+                            ) : <div></div>}
+
+                            <button
+                                onClick={() => {
+                                    if (step < 4) nextStep();
+                                    if (step === 4) handleClose();
+                                }}
+                                disabled={
+                                    (step === 1 && !selectedService) ||
+                                    (step === 2 && !selectedStylist) ||
+                                    (step === 3 && !selectedDate)
+                                }
+                                className="bg-gold text-onyx px-12 h-16 rounded-full text-xs font-sans tracking-[0.2em] uppercase transition-all duration-300 hover:shadow-[0_0_40px_rgba(195,163,67,0.6)] disabled:opacity-50 disabled:bg-alabaster/20 disabled:text-alabaster/50 flex items-center gap-3"
+                            >
+                                {step === 4 ? "Done" : step === 3 ? "Confirm Booking" : "Continue"}
+                                {step < 4 && <ChevronRight className="w-5 h-5" />}
+                            </button>
+                        </motion.div>
+
                     </div>
                 </motion.div>
             )}
